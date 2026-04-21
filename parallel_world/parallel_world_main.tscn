@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://b4dpb0rcjjlsq"]
+
+[ext_resource type="PackedScene" uid="uid://cx3pjynyj44io" path="res://parallel_world/parallel_world.tscn" id="1_mnfd8"]
+
+[node name="ParallelWorldMain" type="Node3D" unique_id=2030139348]
+
+[node name="ParallelWorld3D" parent="." unique_id=1614036590 instance=ExtResource("1_mnfd8")]
