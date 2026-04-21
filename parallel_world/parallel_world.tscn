@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cx3pjynyj44io"]
+
+[ext_resource type="Script" uid="uid://mg171e7lygry" path="res://parallel_world/character.gd" id="1_efp6d"]
+[ext_resource type="Texture2D" uid="uid://c0qwdd8un5xm6" path="res://assets/boid_4.png" id="2_3g8hg"]
+[ext_resource type="Script" uid="uid://b2duc80xgtu4b" path="res://parallel_world/poly_obstacle.gd" id="2_rw37r"]
+[ext_resource type="Script" uid="uid://dbe2w8xite1mj" path="res://parallel_world/3d_mapper.gd" id="3_u033w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3g8hg"]
+radius = 2000.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_efp6d"]
+radius = 50.0
+
+[node name="ParallelWorld3D" type="Node3D" unique_id=1614036590]
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=744078889]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 20, 0)
+current = true
+size = 40.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=299832813]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[node name="MainWorld2D" type="Node2D" parent="." unique_id=1540108413]
+
+[node name="PlanetMarker" type="CollisionShape2D" parent="MainWorld2D" unique_id=1160124757]
+shape = SubResource("CircleShape2D_3g8hg")
+
+[node name="Character" type="CharacterBody2D" parent="MainWorld2D" unique_id=1415750870]
+motion_mode = 1
+script = ExtResource("1_efp6d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainWorld2D/Character" unique_id=1925945567]
+shape = SubResource("CircleShape2D_efp6d")
+
+[node name="Sprite3D" type="Sprite3D" parent="MainWorld2D/Character" unique_id=383676845]
+axis = 1
+double_sided = false
+texture = ExtResource("2_3g8hg")
+script = ExtResource("3_u033w")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/Character" unique_id=1049417102]
+visible = false
+polygon = PackedVector2Array(-55, -3, -32, -46, 38, -39, 50, 21, 6, 55, -46, 37)
+
+[node name="PolyObstacle2" type="Polygon2D" parent="MainWorld2D" unique_id=690747499]
+polygon = PackedVector2Array(-1779, 1394, -1754, -1282, 2160, -1287, 2135, 1444, -1743, 1395, -1743, 1904, 2812, 2006, 2732, -1778, -2334, -1618, -2264, 1912, -1795, 1902)
+script = ExtResource("2_rw37r")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MainWorld2D/PolyObstacle2" unique_id=1279150674]
+
+[node name="PolyObstacle" type="Polygon2D" parent="MainWorld2D" unique_id=1424165652]
+polygon = PackedVector2Array(-421, -244, -595, 145, -398, 363, -495, 102, -342, -19)
+script = ExtResource("2_rw37r")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="MainWorld2D/PolyObstacle" unique_id=981566392]
+
+[node name="ParallelWorld" type="Node" parent="." unique_id=1066563742]
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=259425159]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
+radius = 20.0
+radial_segments = 50
+rings = 25

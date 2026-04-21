@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://c56cvqk6arm5"]
+
+[ext_resource type="Script" uid="uid://0bvh1ynlc61a" path="res://physics_body_child/dev_physics_body_child.gd" id="1_m0yq0"]
+[ext_resource type="Script" uid="uid://dg03ogps7gb36" path="res://physics_body_child/physics_body_child.gd" id="1_ubduw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b00cr"]
+radius = 100.0
+
+[node name="PhysicsBodyChild" type="Node2D" unique_id=1627616972]
+script = ExtResource("1_ubduw")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="." unique_id=770392758]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D" unique_id=762750485]
+shape = SubResource("CircleShape2D_b00cr")
+
+[node name="DevPhysicsBodyChild" type="Node" parent="." unique_id=691158602]
+script = ExtResource("1_m0yq0")
+
+[node name="Polygon2D" type="Polygon2D" parent="." unique_id=1445987441]
+polygon = PackedVector2Array(-67, 68, -9, 97, 33, 47, 78, 64, 96, -24, 22, -74, 9, -101, -86, -65, -55, -33, -97, -10, -93, 35, -55, 39)
