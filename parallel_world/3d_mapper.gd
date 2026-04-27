@@ -6,6 +6,7 @@ var source_2d: Node2D = get_parent()
 func _process(_delta):
 	if source_2d == null:
 		return
+	source_2d.visible = false
 	
 	var radius := PlanetConfig.get_planet_radius()
 	var planet_dist := PlanetConfig.get_planet_dist()

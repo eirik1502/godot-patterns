@@ -4,6 +4,9 @@
 [ext_resource type="PackedScene" uid="uid://bvgcydtnh5p6m" path="res://parallel_world/character.tscn" id="1_rw37r"]
 [ext_resource type="Script" uid="uid://dcfj4xa6n0exq" path="res://parallel_world/scene_spawner.gd" id="1_v7v4l"]
 [ext_resource type="Script" uid="uid://b2duc80xgtu4b" path="res://parallel_world/poly_obstacle.gd" id="2_rw37r"]
+[ext_resource type="Script" uid="uid://cfhbt12q24hq6" path="res://parallel_world/polygon_extruder.gd" id="5_u033w"]
+[ext_resource type="Script" uid="uid://dbe2w8xite1mj" path="res://parallel_world/3d_mapper.gd" id="6_ewkv1"]
+[ext_resource type="Script" uid="uid://c1bc0fx1snplt" path="res://parallel_world/polygon_source_shape.gd" id="7_0bpst"]
 
 [node name="ParallelWorld3D" type="Node3D" unique_id=1614036590]
 
@@ -14,14 +17,11 @@ size = 40.0
 
 [node name="PlanetConfig" type="Node" parent="." unique_id=2092949902]
 script = ExtResource("1_3g8hg")
-planet_radius = 20.0
-planet_dist = 20.0
 metadata/_custom_type_script = "uid://omhcb3xrog12"
 
 [node name="CSGSphere3D" type="CSGSphere3D" parent="." unique_id=259425159]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -20, 0)
-visible = false
-radius = 20.0
+radius = 15.0
 radial_segments = 50
 rings = 25
 
@@ -44,7 +44,7 @@ grow_horizontal = 2
 grow_vertical = 2
 border_width = 10.0
 script = ExtResource("1_v7v4l")
-amount = 1000
+amount = 30
 scene = ExtResource("1_rw37r")
 
 [node name="Character" parent="MainWorld2D" unique_id=1405712010 instance=ExtResource("1_rw37r")]
@@ -54,5 +54,24 @@ polygon = PackedVector2Array(-8001.434, 5021.957, -7900.398, -5792.9707, 7917.84
 script = ExtResource("2_rw37r")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="MainWorld2D/OuterWalls" unique_id=1279150674]
+
+[node name="StaticBody2D" type="RigidBody2D" parent="MainWorld2D" unique_id=1374491073]
+position = Vector2(-594, -50)
+linear_velocity = Vector2(300, 50)
+
+[node name="PolygonSourceShape" type="CollisionPolygon2D" parent="MainWorld2D/StaticBody2D" unique_id=1054165412 node_paths=PackedStringArray("polygon2D")]
+script = ExtResource("7_0bpst")
+polygon2D = NodePath("../Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/StaticBody2D" unique_id=1489169362]
+color = Color(0.91670036, 0.8912623, 0.67202616, 1)
+polygon = PackedVector2Array(-312, -29, -278, 353, 143, 345, 165, 30, 400, -147, 281, -399, 26, -421, -289, -296)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainWorld2D/StaticBody2D/Polygon2D" unique_id=117251429]
+script = ExtResource("6_ewkv1")
+
+[node name="PolygonExtruder" type="Node" parent="MainWorld2D/StaticBody2D/Polygon2D/MeshInstance3D" unique_id=529845696 node_paths=PackedStringArray("polygon")]
+script = ExtResource("5_u033w")
+polygon = NodePath("../..")
 
 [node name="ParallelWorld" type="Node" parent="." unique_id=1066563742]
