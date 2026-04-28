@@ -26,39 +26,41 @@ static func extrude_polygon(polygon: PackedVector2Array, depth: float) -> ArrayM
 
 	var s = 0.01
 	var indices = Geometry2D.triangulate_polygon(polygon)
-
+	
 	var v = func(i, y):
 		return Vector3(polygon[i].x * s, y, -polygon[i].y * s)
 
-	# -------------------
-	# FRONT FACE (use triangulation directly, no fan)
-	# -------------------
+	var add_triangle = func(vertecies: Array):
+		var to_1 = vertecies[1] - vertecies[0]
+		var to_2 = vertecies[2] - vertecies[0]
+		var normal = to_2.cross(to_1).normalized()
+		for vertex in vertecies:
+			st.set_normal(normal)
+			st.add_vertex(vertex)
+	
+	var add_face = func(indices_indices: Array, z: float):
+		var a_i = indices[indices_indices[0]]
+		var b_i = indices[indices_indices[1]]
+		var c_i = indices[indices_indices[2]]
+		
+		var a = v.call(a_i, z)
+		var b = v.call(b_i, z)
+		var c = v.call(c_i, z)
+		
+		add_triangle.call([a, b, c])
+		
+	if depth < 0:
+		indices.reverse()
+
 	for i in range(0, indices.size(), 3):
-		var a = indices[i]
-		var b = indices[i + 1]
-		var c = indices[i + 2]
+		add_face.call([i, i+1, i+2], 0.0)
 
-		st.add_vertex(v.call(a, 0.0))
-		st.add_vertex(v.call(b, 0.0))
-		st.add_vertex(v.call(c, 0.0))
-
-	# -------------------
-	# BACK FACE (same triangles, reversed winding)
-	# -------------------
 	for i in range(0, indices.size(), 3):
-		var a = indices[i]
-		var b = indices[i + 1]
-		var c = indices[i + 2]
+		add_face.call([i, i+2, i+1], depth)
 
-		st.add_vertex(v.call(a, depth))
-		st.add_vertex(v.call(c, depth))
-		st.add_vertex(v.call(b, depth))
-
-	# -------------------
-	# SIDES (edge-based, independent of triangulation)
-	# -------------------
+	if depth < 0:
+		polygon.reverse()
 	var n = polygon.size()
-
 	for i in range(n):
 		var next = (i + 1) % n
 
@@ -66,16 +68,11 @@ static func extrude_polygon(polygon: PackedVector2Array, depth: float) -> ArrayM
 		var b0 = v.call(next, 0.0)
 		var b1 = v.call(next, depth)
 		var a1 = v.call(i, depth)
+		
+		add_triangle.call([a0, b0, b1])
+		add_triangle.call([a0, b1, a1])
 
-		st.add_vertex(a0)
-		st.add_vertex(b0)
-		st.add_vertex(b1)
-
-		st.add_vertex(a0)
-		st.add_vertex(b1)
-		st.add_vertex(a1)
-
-	st.generate_normals()
+	#st.generate_normals()
 
 	var mesh = ArrayMesh.new()
 	st.commit(mesh)

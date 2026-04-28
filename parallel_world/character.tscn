@@ -32,5 +32,6 @@ script = ExtResource("3_doxub")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Node3D" unique_id=208891874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -10, 0)
+visible = false
 size = Vector3(1, 19.9, 1)
 material = SubResource("StandardMaterial3D_1abjl")
