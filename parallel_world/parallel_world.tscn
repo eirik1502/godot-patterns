@@ -76,4 +76,80 @@ script = ExtResource("6_ewkv1")
 script = ExtResource("5_u033w")
 polygon = NodePath("../..")
 
+[node name="ObstacleBar" type="RigidBody2D" parent="MainWorld2D" unique_id=2381100001]
+position = Vector2(420, 220)
+linear_velocity = Vector2(160, -90)
+
+[node name="PolygonSourceShape" type="CollisionPolygon2D" parent="MainWorld2D/ObstacleBar" unique_id=2381100002 node_paths=PackedStringArray("polygon2D")]
+script = ExtResource("7_0bpst")
+polygon2D = NodePath("../Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/ObstacleBar" unique_id=2381100003]
+color = Color(0.35, 0.62, 0.95, 1)
+polygon = PackedVector2Array(-140, -24, 140, -24, 140, 24, -140, 24)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainWorld2D/ObstacleBar/Polygon2D" unique_id=2381100004]
+script = ExtResource("6_ewkv1")
+
+[node name="PolygonExtruder" type="Node" parent="MainWorld2D/ObstacleBar/Polygon2D/MeshInstance3D" unique_id=2381100005 node_paths=PackedStringArray("polygon")]
+script = ExtResource("5_u033w")
+polygon = NodePath("../..")
+
+[node name="ObstacleTriangle" type="RigidBody2D" parent="MainWorld2D" unique_id=2381200001]
+position = Vector2(350, 420)
+linear_velocity = Vector2(-110, 130)
+
+[node name="PolygonSourceShape" type="CollisionPolygon2D" parent="MainWorld2D/ObstacleTriangle" unique_id=2381200002 node_paths=PackedStringArray("polygon2D")]
+script = ExtResource("7_0bpst")
+polygon2D = NodePath("../Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/ObstacleTriangle" unique_id=2381200003]
+color = Color(0.95, 0.52, 0.28, 1)
+polygon = PackedVector2Array(0, -95, 82, 72, -82, 72)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainWorld2D/ObstacleTriangle/Polygon2D" unique_id=2381200004]
+script = ExtResource("6_ewkv1")
+
+[node name="PolygonExtruder" type="Node" parent="MainWorld2D/ObstacleTriangle/Polygon2D/MeshInstance3D" unique_id=2381200005 node_paths=PackedStringArray("polygon")]
+script = ExtResource("5_u033w")
+polygon = NodePath("../..")
+
+[node name="ObstacleHex" type="RigidBody2D" parent="MainWorld2D" unique_id=2381300001]
+position = Vector2(180, -320)
+linear_velocity = Vector2(190, 110)
+
+[node name="PolygonSourceShape" type="CollisionPolygon2D" parent="MainWorld2D/ObstacleHex" unique_id=2381300002 node_paths=PackedStringArray("polygon2D")]
+script = ExtResource("7_0bpst")
+polygon2D = NodePath("../Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/ObstacleHex" unique_id=2381300003]
+color = Color(0.72, 0.42, 0.92, 1)
+polygon = PackedVector2Array(80, 0, 40, 69, -40, 69, -80, 0, -40, -69, 40, -69)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainWorld2D/ObstacleHex/Polygon2D" unique_id=2381300004]
+script = ExtResource("6_ewkv1")
+
+[node name="PolygonExtruder" type="Node" parent="MainWorld2D/ObstacleHex/Polygon2D/MeshInstance3D" unique_id=2381300005 node_paths=PackedStringArray("polygon")]
+script = ExtResource("5_u033w")
+polygon = NodePath("../..")
+
+[node name="ObstacleDiamond" type="RigidBody2D" parent="MainWorld2D" unique_id=2381400001]
+position = Vector2(650, 350)
+linear_velocity = Vector2(-150, -75)
+
+[node name="PolygonSourceShape" type="CollisionPolygon2D" parent="MainWorld2D/ObstacleDiamond" unique_id=2381400002 node_paths=PackedStringArray("polygon2D")]
+script = ExtResource("7_0bpst")
+polygon2D = NodePath("../Polygon2D")
+
+[node name="Polygon2D" type="Polygon2D" parent="MainWorld2D/ObstacleDiamond" unique_id=2381400003]
+color = Color(0.32, 0.88, 0.72, 1)
+polygon = PackedVector2Array(0, -105, 58, 0, 0, 105, -58, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MainWorld2D/ObstacleDiamond/Polygon2D" unique_id=2381400004]
+script = ExtResource("6_ewkv1")
+
+[node name="PolygonExtruder" type="Node" parent="MainWorld2D/ObstacleDiamond/Polygon2D/MeshInstance3D" unique_id=2381400005 node_paths=PackedStringArray("polygon")]
+script = ExtResource("5_u033w")
+polygon = NodePath("../..")
+
 [node name="ParallelWorld" type="Node" parent="." unique_id=1066563742]
